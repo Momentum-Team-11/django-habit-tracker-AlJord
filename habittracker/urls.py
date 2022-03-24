@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from habit import views as habit_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
+    path ('home', habit_views.home, name='home'),
+    path('', habit_views.welcome, name='welcome'), #welcome page, user not registered
+    path('habit/add', habit_views.add_habit, name='add_habit')
 ]
+

@@ -8,11 +8,12 @@ class User(AbstractUser):
         return self.username
 
 class Habit(models.Model):
-    goal=models.CharField(max_length=300)
-    created_at=models.DateField(auto_now_add=True)
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    title=models.CharField(max_length=300,null=True, blank=True)
+    goal=models.CharField(max_length=300,null=True, blank=True)
+    created_at=models.DateField(auto_now_add=True,null=True, blank=True)
+    user=models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True)
     def __str__(self):
-        return self.goal
+        return self.title if self.title else ''
 
 
 class Result(models.Model):

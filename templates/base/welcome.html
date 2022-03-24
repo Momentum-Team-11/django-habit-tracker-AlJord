@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Habits
+{% endblock %}
+
+{% block content %}
+<h1>Habits.</h1>
+<h1>For A Better You.</h1> 
+<br>Sign up for beta access or log into your account
+
+
+<br>
+<a href={% url 'registration_register' %} class="moon-gray ml3 no-underline">Sign Up</a>
+<a href={% url 'auth_login' %} class="moon-gray ml2 no-underline">Log In</a>
+{% endblock %}
