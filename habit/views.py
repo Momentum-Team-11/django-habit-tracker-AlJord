@@ -24,3 +24,15 @@ def add_habit(request):
             form.save()
             return redirect(to='add_habit')
     return render(request, 'base/add_habit.html', {'form':form})
+
+def delete(request, pk):
+    habit=get_object_or_404(Habit, pk=pk)
+    if request.method=='POST':
+        habit.delete()
+        return redirect(to='home')
+    return render (request, 'base/delete.html',{'habit':habit})
+
+
+def habit_detail(request, pk):
+    habit=get_object_or_404(Habit, pk=pk)
+    return render(request, 'base/details.html', {'habit':habit})
