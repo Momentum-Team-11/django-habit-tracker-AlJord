@@ -129,7 +129,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL= 'habit.User'
-SIMPLE_BACKEND_REDIRECT_URL= '/'
+LOGIN_REDIRECT_URL = "home"
 
 # These are settings for heroku
 django_on_heroku.settings(locals())
