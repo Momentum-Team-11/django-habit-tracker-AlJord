@@ -1,15 +1,17 @@
-{% extends "base.html" %}
+{% extends 'base.html'%}
 {% block content %}
 <h3> Details</h3>
 
 <div>
-
-    {% if habit %}
-    <title>
-        goal
-        created at
-    </title>
-
-    {% endif %}
+    <p>{{habit.title}}</p>
+    <p>{{habit.goal}}</p>
 </div>
+<a>Update</a>
+<div>
+    {%for results in result %}
+    <p>{{results.total}}</p>
+    {% endfor %}
+</div>
+<br><br><p>Created on {{habit.created_at}}</p>
+
 {% endblock %}

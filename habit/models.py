@@ -10,6 +10,7 @@ class User(AbstractUser):
 class Habit(models.Model):
     title=models.CharField(max_length=300,null=True, blank=True)
     goal=models.CharField(max_length=300,null=True, blank=True)
+    daily=models.IntegerField(default=0)
     created_at=models.DateField(auto_now_add=True,null=True, blank=True)
     user=models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True)
     def __str__(self):
@@ -17,14 +18,16 @@ class Habit(models.Model):
 
 
 class Result(models.Model):
-    habit=models.ForeignKey(Habit,on_delete=models.CASCADE, related_name="results") #users will see which goal was completed
-    total=models.CharField(max_length=20,default="",null=True, blank=True) #Users can see total number of goals completed
-    date_accomplished=models.CharField(max_length=20,default="",null=True, blank=True)
 
+    habit=models.ForeignKey(Habit,on_delete=models.CASCADE, related_name="results") #users will see which goal was completed
+    total=models.IntegerField(default=0) #Users can see total number of goals completed
+    attempt=models.BooleanField(False,null=True, blank=True)
+    date_accomplished=models.CharField(max_length=20,default="",null=True, blank=True)
     class Meta:
         constraints = [
         models.UniqueConstraint(fields=['habit','date_accomplished'], name='one_record_per_day')
         ]
+
     def __str__(self):
         return str(self.total)
 

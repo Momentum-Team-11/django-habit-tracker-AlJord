@@ -24,6 +24,8 @@ urlpatterns = [
     path('', habit_views.welcome, name='welcome'), #welcome page, user not registered
     path('habit/add', habit_views.add_habit, name='add_habit'),
     path ('habit/<int:pk>/delete', habit_views.delete, name='delete'),
-    path('habit/<int:pk>/', habit_views.habit_detail, name='habit_detail')
+    path('habit/<int:pk>/', habit_views.habit_detail, name='habit_detail'),
+    path('habit/<int:habit_pk>/<int:result_pk>/update_daily/', 
+    habit_views.update_daily, name="update_daily")
 ]
 

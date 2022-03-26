@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> Update Daily Record</title>
+{% endblock %}
+
+{% block content %}
+<div>
+    <h1 class="title">update {{ habit.daily }}</h1>
+
+    <div>
+    <form action="{% url 'update_daily' habit_pk=habit.id result_pk=result.id %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+        <button type="submit">Update</button>
+        </div>
+    </form>
+    </div>
+</div>
+{% endblock %}

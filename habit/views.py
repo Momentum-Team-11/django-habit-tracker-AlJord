@@ -22,7 +22,7 @@ def add_habit(request):
         form=HabitForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect(to='add_habit')
+            return redirect(to='home')
     return render(request, 'base/add_habit.html', {'form':form})
 
 def delete(request, pk):
@@ -35,4 +35,18 @@ def delete(request, pk):
 
 def habit_detail(request, pk):
     habit=get_object_or_404(Habit, pk=pk)
-    return render(request, 'base/details.html', {'habit':habit})
+    result=Result.objects.all().filter(habit_id=habit.id)
+    form=HabitForm()
+    return render(request, 'base/details.html', {'habit':habit,'form':form,'result':result})
+
+def update_daily(request, habit_pk, result_pk):
+    habit=get_object_or_404(Habit,pk=habit_pk)
+    result=get_object_or_404(Result,pk=result_pk)
+    if request.method =='GET':
+        form=ResultForm(request.POST,instance=result)
+        if form.is_valid():
+            form.save()
+            return redirect(to='habit_detail',habit_pk=habit.pk)
+        else:
+            form=ResultForm(instance=result)
+        return render(request,'update_daily.html',{'form':form,'habit':habit,'result':result})
