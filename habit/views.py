@@ -39,14 +39,15 @@ def habit_detail(request, pk):
     form=HabitForm()
     return render(request, 'base/details.html', {'habit':habit,'form':form,'result':result})
 
-def update_daily(request, habit_pk, result_pk):
-    habit=get_object_or_404(Habit,pk=habit_pk)
-    result=get_object_or_404(Result,pk=result_pk)
-    if request.method =='GET':
-        form=ResultForm(request.POST,instance=result)
+def update_daily(request, habit_pk):
+    habit=get_object_or_404(Habit, pk=habit_pk)
+    if request.method=="GET":
+        form=ResultForm()
+    else:
+        form=ResultForm(data=request.POST)
         if form.is_valid():
-            form.save()
-            return redirect(to='habit_detail',habit_pk=habit.pk)
-        else:
-            form=ResultForm(instance=result)
-        return render(request,'update_daily.html',{'form':form,'habit':habit,'result':result})
+            result=form.save(commit=False)
+            result.habit=habit
+            result.save()
+            return redirect(to='update_daily', pk=habit.pk)
+    return render(request, 'base/update_daily.html' ,{'form':form,'habit':habit})

@@ -10,6 +10,8 @@
         <br><a href="{% url 'habit_detail' pk=habits.pk %}"><b>{{habits.title}}</b></a>
         <p>{{ habits.goal }}</p>
         <a href="{% url 'delete' pk=habits.pk %}">Delete</a>
+        <br>
+        <br>
     {% endfor %}
     </div>
 
