@@ -11,10 +11,12 @@ def welcome(request):
     else:
         return render(request, 'base/welcome.html')
 
+@login_required
 def home(request):
     habit=Habit.objects.all()
     return render(request, "base/home.html", {'habit': habit})
 
+@login_required
 def add_habit(request):
     if request.method == 'GET':
         form=HabitForm()
@@ -25,6 +27,7 @@ def add_habit(request):
             return redirect(to='home')
     return render(request, 'base/add_habit.html', {'form':form})
 
+@login_required
 def delete(request, pk):
     habit=get_object_or_404(Habit, pk=pk)
     if request.method=='POST':
@@ -32,13 +35,14 @@ def delete(request, pk):
         return redirect(to='home')
     return render (request, 'base/delete.html',{'habit':habit})
 
-
+@login_required
 def habit_detail(request, pk):
     habit=get_object_or_404(Habit, pk=pk)
     result=Result.objects.all().filter(habit_id=habit.id)
     form=HabitForm()
     return render(request, 'base/details.html', {'habit':habit,'form':form,'result':result})
 
+@login_required
 def update_daily(request, habit_pk):
     habit=get_object_or_404(Habit, pk=habit_pk)
     if request.method=="GET":
@@ -52,6 +56,7 @@ def update_daily(request, habit_pk):
             return redirect(to='habit_detail', pk=habit.pk)
     return render(request, 'base/update_daily.html' ,{'form':form,'habit':habit})
 
+@login_required
 def edit_record(request, pk):
     record=Result.objects.filter(pk=pk).first()
     if request.method =="POST":
