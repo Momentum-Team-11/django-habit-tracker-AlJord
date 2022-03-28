@@ -49,5 +49,17 @@ def update_daily(request, habit_pk):
             result=form.save(commit=False)
             result.habit=habit
             result.save()
-            return redirect(to='update_daily', pk=habit.pk)
+            return redirect(to='habit_detail', pk=habit.pk)
     return render(request, 'base/update_daily.html' ,{'form':form,'habit':habit})
+
+def edit_record(request, pk):
+    record=Result.objects.filter(pk=pk).first()
+    if request.method =="POST":
+        form=ResultForm(request.POST, instance=record)
+        if form.is_valid():
+            record=form.save(commit=False)
+            record.save()
+            return redirect(to='details',pk=pk)
+        else:
+            form=ResultForm(instance=record)
+        return render(request, 'edit_record.html', {'form':form, 'record':record})

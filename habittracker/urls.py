@@ -27,5 +27,6 @@ urlpatterns = [
     path('habit/<int:pk>/', habit_views.habit_detail, name='habit_detail'),
     path('habit/<int:habit_pk>/update_daily/', 
     habit_views.update_daily, name='update_daily'),
-]
+    path('habits/<int:pk>/', habit_views.edit_record, name='edit_record'),
+    ]
 

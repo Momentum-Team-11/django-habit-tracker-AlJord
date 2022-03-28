@@ -40,7 +40,6 @@ class Result(models.Model):
         constraints = [
         models.UniqueConstraint(fields=['habit','accomplished'], name='one_record_per_day')
         ]
-
     def __str__(self):
         return str(self.total)
 
