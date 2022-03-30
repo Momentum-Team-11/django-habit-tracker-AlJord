@@ -59,10 +59,11 @@ def update_daily(request, habit_pk):
 @login_required
 def edit_record(request, pk):
     record=Result.objects.filter(pk=pk).first()
-    if request.method =="POST":
+    if request.method =="POST":  
         form=ResultForm(request.POST, instance=record)
         if form.is_valid():
             record=form.save(commit=False)
+            #habit_pk=resutl.habit_record.pk
             record.save()
             return redirect(to='details',pk=pk)
         else:

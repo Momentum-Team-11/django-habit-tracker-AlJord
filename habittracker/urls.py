@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from habit import views as habit_views
+from api import views as api_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +29,8 @@ urlpatterns = [
     path('habit/<int:habit_pk>/update_daily/', 
     habit_views.update_daily, name='update_daily'),
     path('habits/<int:pk>/', habit_views.edit_record, name='edit_record'),
+    
+    path('api-auth/', include('rest_framework.urls')),
+    path("api/habit", api_views.HabitListView.as_view(), name="api_habit_list")
     ]
 

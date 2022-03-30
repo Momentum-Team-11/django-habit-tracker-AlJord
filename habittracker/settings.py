@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'habit',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,11 @@ LOGIN_REDIRECT_URL = "home"
 # These are settings for heroku
 django_on_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ]
+}
