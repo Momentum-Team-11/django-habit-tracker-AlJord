@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from habit import views as habit_views
 from api import views as api_views
+from habit.models import Habit
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +32,11 @@ urlpatterns = [
     path('habits/<int:pk>/', habit_views.edit_record, name='edit_record'),
     
     path('api-auth/', include('rest_framework.urls')),
-    path("api/habit", api_views.HabitListView.as_view(), name="api_habit_list")
+    path("api/habit", api_views.HabitListView.as_view(), name="api_habit_list"),
+    path('api/habit/records', api_views.ResultListView.as_view(), name='api_result_list'),
+    path('api/habit/<int:pk>', api_views.HabitDetails.as_view(), name='habit_details'),
+    ## path ('api/habit/update/<int:pk>/', api_views.HabitUpdate.as_view(), name='habit_update'),
+    path('api/habit/delete/<int:pk>', api_views.HabitDetails.as_view(), name='habit_delete'),
+    
     ]
 

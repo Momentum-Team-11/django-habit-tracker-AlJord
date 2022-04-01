@@ -58,14 +58,12 @@ def update_daily(request, habit_pk):
 
 @login_required
 def edit_record(request, pk):
-    record=Result.objects.filter(pk=pk).first()
-    if request.method =="POST":  
-        form=ResultForm(request.POST, instance=record)
-        if form.is_valid():
-            record=form.save(commit=False)
-            #habit_pk=resutl.habit_record.pk
-            record.save()
-            return redirect(to='details',pk=pk)
-        else:
-            form=ResultForm(instance=record)
-        return render(request, 'edit_record.html', {'form':form, 'record':record})
+    record = Result.objects.filter(pk=pk).first()
+    if request.method == 'GET':
+        form = ResultForm(instance=record)
+    else:
+        form = ResultForm(request.POST, instance=record)
+    if form.is_valid():
+        form.save()
+        return redirect(to='detail', pk=record.habit.pk)
+    return render(request, 'edit_record.html', {'form': form, 'result': result})
