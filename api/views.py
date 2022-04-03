@@ -10,19 +10,20 @@ from api import serializers
 class HabitListView(generics.ListCreateAPIView):
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
-    def perform_create(self, serializer):
-        serializer.save(app_user=self.request.user)
 
-class ResultListView(generics.ListAPIView):
+
+class ResultListView(generics.ListCreateAPIView):
     queryset = Result.objects.all()
     serializer_class = ResultSerializer
 
 class HabitDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Habit.objects.all()
     serializer_class = HabitResultSerializer
-    def preform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-    
+
+class ResultDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Result.objects.all()
+    serializer_class = ResultSerializer
+
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()

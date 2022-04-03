@@ -35,8 +35,7 @@ urlpatterns = [
     path("api/habit", api_views.HabitListView.as_view(), name="api_habit_list"),
     path('api/habit/records', api_views.ResultListView.as_view(), name='api_result_list'),
     path('api/habit/<int:pk>', api_views.HabitDetails.as_view(), name='habit_details'),
-    ## path ('api/habit/update/<int:pk>/', api_views.HabitUpdate.as_view(), name='habit_update'),
-    path('api/habit/delete/<int:pk>', api_views.HabitDetails.as_view(), name='habit_delete'),
+    path('api/habit/result/<int:pk>', api_views.ResultDetails.as_view(), name='result_details'),
     
     ]
 

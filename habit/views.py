@@ -13,19 +13,22 @@ def welcome(request):
 
 @login_required
 def home(request):
-    habit=Habit.objects.all()
+    habit=Habit.objects.filter(user=request.user)
     return render(request, "base/home.html", {'habit': habit})
 
 @login_required
 def add_habit(request):
-    if request.method == 'GET':
-        form=HabitForm()
-    else:
-        form=HabitForm(data=request.POST)
+    if request.method == 'POST':
+        form = HabitForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            habit = form.save(commit=False)
+            habit.user = request.user
+            habit.save()
             return redirect(to='home')
-    return render(request, 'base/add_habit.html', {'form':form})
+    else:
+        form = HabitForm()
+    return render(request, 'base/add_habit.html',{'form':form})
+    
 
 @login_required
 def delete(request, pk):
