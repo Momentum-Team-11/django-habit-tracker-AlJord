@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h3> Details</h3>
+{% if habit %}
+<div>
+    <p>{{habit.title}}</p>
+    <p>{{habit.goal}}</p>
+</div>
+{% endif %}
+
+<a href="{% url 'update_daily' habit_pk=habit.pk %}">Update Todays Goal</a><br>
+
+<div>
+    {%for results in result %}
+    <p>{{results.total}} {{results.accomplished }}</p>
+    {% endfor %}
+</div>
+<br><br>
+<a href= "{% url 'home' %}">Home Page</a>
+<p>Created on {{habit.created_at}}</p>
+
+{% endblock %}
